@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: swinz-lora-api
+    env: python
+    repo: https://github.com/yourusername/swinz_lora.git  # Replace with your repo
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    plan: starter  # You might need a higher plan for ML models
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: PYTHON_VERSION
+        value: 3.11.0
+    # Increase resources for ML model
+    disk:
+      name: swinz-model-disk
+      mountPath: /app/models
+      sizeGB: 10
