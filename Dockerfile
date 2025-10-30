@@ -22,12 +22,12 @@ COPY . .
 # Create directory for model if it doesn't exist
 RUN mkdir -p swinz-3b-lora
 
-# Expose port
-EXPOSE 8000
+# Expose port (Render will set PORT env var)
+EXPOSE $PORT
 
-# Health check
+# Health check - use PORT env var
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD curl -f http://localhost:8000/health || exit 1
+    CMD curl -f http://localhost:${PORT:-8000}/health || exit 1
 
 # Run the application
 CMD ["python", "app.py"]
